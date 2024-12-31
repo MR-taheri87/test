@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود به حساب دیجی‌کالا</title>
+    <style>
+        body {
+            font-family: 'Iranian Sans', Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            font-size: 22px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .textbox {
+            margin-bottom: 15px;
+        }
+
+        .textbox input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+            color: #333;
+            transition: border 0.3s ease;
+        }
+
+        .textbox input:focus {
+            border-color: #006c74;
+            outline: none;
+        }
+
+        .textbox input[type="submit"] {
+            background-color: #006c74;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            padding: 15px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .textbox input[type="submit"]:hover {
+            background-color: #00565a;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .footer a {
+            color: #006c74;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer p {
+            margin: 10px 0;
+        }
+    </style>
+    <script>
+        // ذخیره کردن داده‌ها در localStorage
+        function saveData() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // ذخیره داده‌ها در localStorage
+            localStorage.setItem('username', username);
+            localStorage.setItem('password', password);
+            alert('اطلاعات ذخیره شد!');
+
+            // ذخیره در فایل متنی
+            saveToFile(username, password);
+        }
+
+        // ذخیره کردن داده‌ها در فایل متنی
+        function saveToFile(username, password) {
+            var data = "Username: " + username + "\nPassword: " + password;
+            var blob = new Blob([data], {type: "text/plain"});
+            var link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "login_data.txt";
+            link.click();
+        }
+
+        // بارگذاری داده‌ها از localStorage
+        function loadData() {
+            var username = localStorage.getItem('username');
+            var password = localStorage.getItem('password');
+            if (username && password) {
+                document.getElementById('username').value = username;
+                document.getElementById('password').value = password;
+            }
+        }
+
+        window.onload = loadData;  // بارگذاری داده‌ها در زمان لود صفحه
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>ورود به حساب دیجی‌کالا</h2>
+        <form onsubmit="saveData(); return false;">
+            <div class="textbox">
+                <input type="text" id="username" placeholder="نام کاربری یا شماره همراه" name="username" required>
+            </div>
+            <div class="textbox">
+                <input type="password" id="password" placeholder="رمز عبور" name="password" required>
+            </div>
+            <div class="textbox">
+                <input type="submit" value="ورود">
+            </div>
+        </form>
+        <div class="footer">
+            <p>حساب ندارید؟ <a href="#">ثبت نام کنید</a></p>
+            <p><a href="#">بازیابی رمز عبور</a></p>
+        </div>
+    </div>
+</body>
+</html>
+
+
